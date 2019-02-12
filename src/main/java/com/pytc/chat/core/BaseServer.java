@@ -28,6 +28,7 @@ public abstract class BaseServer implements Server {
     protected ServerBootstrap b;
 
     public void init(){
+        // 创建EventLoopGroup
         defLoopGroup = new DefaultEventLoopGroup(8, new ThreadFactory() {
             private AtomicInteger index = new AtomicInteger(0);
 
@@ -52,12 +53,13 @@ public abstract class BaseServer implements Server {
                 return new Thread(r, "WORK_" + index.incrementAndGet());
             }
         });
-
+        // 创建ServerBootstrap
         b = new ServerBootstrap();
     }
 
     @Override
     public void shutdown() {
+        // 关闭EventLoopGroup，释放所有资源
         if (defLoopGroup != null) {
             defLoopGroup.shutdownGracefully();
         }

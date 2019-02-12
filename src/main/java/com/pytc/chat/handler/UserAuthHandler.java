@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Andy
+ * @author zhu
  */
 public class UserAuthHandler extends SimpleChannelInboundHandler<Object> {
     private static final Logger logger = LoggerFactory.getLogger(UserAuthHandler.class);
@@ -32,6 +32,7 @@ public class UserAuthHandler extends SimpleChannelInboundHandler<Object> {
         }
     }
 
+    // 覆写userEventTriggered方法来处理自定义事件
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {

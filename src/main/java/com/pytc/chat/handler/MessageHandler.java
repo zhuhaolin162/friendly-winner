@@ -40,4 +40,5 @@ public class MessageHandler extends SimpleChannelInboundHandler<TextWebSocketFra
         UserInfoManager.broadCastInfo(ChatCode.SYS_USER_COUNT, UserInfoManager.getAuthUserCount());
     }
 
+
 }

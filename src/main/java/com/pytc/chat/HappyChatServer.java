@@ -32,11 +32,14 @@ public class HappyChatServer extends BaseServer {
     @Override
     public void start() {
         b.group(bossGroup, workGroup)
+                // 指定使用nio的传输channel
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.SO_BACKLOG, 1024)
+                // 设置socket地址使用所选的端口
                 .localAddress(new InetSocketAddress(port))
+                // 添加handler到channel的channelPipeline
                 .childHandler(new ChannelInitializer<SocketChannel>() {
 
                     @Override
@@ -53,6 +56,7 @@ public class HappyChatServer extends BaseServer {
                 });
 
         try {
+            // 绑定的服务器，sync等待服务器关闭
             cf = b.bind().sync();
             InetSocketAddress addr = (InetSocketAddress) cf.channel().localAddress();
             logger.info("WebSocketServer start success, port is:{}", addr.getPort());
